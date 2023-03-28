@@ -1,11 +1,15 @@
 require('dotenv').config();
+const path = require('path');
 
 const express = require('express');
 const logger = require('morgan');
-const path = require('path');
-
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, '../public')));
+
+
+const PORT = process.env.PORT || 4000;
 
 app.get('/api', function (req, res) {
   const response = { message: 'Hello! I am from backend' };
