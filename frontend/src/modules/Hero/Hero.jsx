@@ -3,7 +3,7 @@ import Block from '../../Components/Block';
 
 function Hero() {
   return (
-    <Block maxHeight="91vh" overflow="hidden" margin="9vh 0 0 0">
+    <Block maxHeight="91vh" height="91vh" overflow="hidden" margin="9vh 0 0 0" bgColor="gray">
       <video
         autoPlay="autoplay"
         loop="loop"

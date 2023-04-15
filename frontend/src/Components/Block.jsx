@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import {BlockHover} from '../modules/ProjectList/ProjectList'
 
 const StyledBlock = styled.div`
   display: ${({ display }) => display || 'block'};
@@ -40,6 +41,19 @@ const StyledBlock = styled.div`
     css`
       width: ${width};
     `}
+
+     ${({ hasHover }) =>
+    hasHover &&
+    css`
+      &:hover {
+        ${BlockHover} {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0.5;
+        }
+      }
+    `}
 `;
 
 function Block({
@@ -65,7 +79,8 @@ function Block({
   color,
   left,
   top,
-  right
+  right,
+  hasHover,
 }) {
   return (
     <StyledBlock
@@ -91,6 +106,7 @@ function Block({
       left={left}
       top={top}
       right={right}
+      hasHover={hasHover}
     >
       {children}
     </StyledBlock>

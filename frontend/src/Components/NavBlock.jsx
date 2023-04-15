@@ -8,15 +8,19 @@ const NavBlockStyles = styled.nav`
   list-style-type: none;
 `;
 
-const NavBlock = ({ children, display, flex, flexDirection, justifyContent }) => (
-  <NavBlockStyles
-    flex={flex}
-    flexDirection={flexDirection}
-    display={display}
-    justifyContent={justifyContent}
-  >
-    {children}
-  </NavBlockStyles>
-);
+function NavBlock({
+  children, display, flex, flexDirection, justifyContent,
+}) {
+  return (
+    <NavBlockStyles
+      flex={flex}
+      flexDirection={flexDirection}
+      display={display}
+      justifyContent={justifyContent}
+    >
+      {children}
+    </NavBlockStyles>
+  );
+}
 
 export default NavBlock;

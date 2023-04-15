@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import {BlockHover} from '../modules/ProjectList/ProjectList'
 
 const LinkStyles = styled.a`
   display: block;
@@ -9,11 +10,11 @@ const LinkStyles = styled.a`
   height: ${({ height }) => height || ''};
   max-width: ${({ maxWidth }) => maxWidth || ''};
   max-height: ${({ maxHeight }) => maxHeight || ''};
-  margin-left: 30px;
+  margin-left: ${({ marginLeft }) => marginLeft || '30px'};;
   cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
+  // &:hover {
+  //   text-decoration: underline;
+  // }
   ${(props) =>
     props.background &&
     css`
@@ -22,9 +23,22 @@ const LinkStyles = styled.a`
       background-size: cover;
       background-position: 50% 50%;
     `}
+    ${({ hasHover }) =>
+    hasHover &&
+    css`
+      &:hover {
+        ${BlockHover} {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0.5;
+          z-index:10;
+        }
+      }
+    `}
 `;
 
-const Link = ({
+function Link({
   href,
   title,
   position,
@@ -35,9 +49,10 @@ const Link = ({
   height,
   maxWidth,
   minHeight,
+  marginLeft,
   children,
-}) => {
-  console.log('background', background);
+  hasHover
+}) {
   return (
     <LinkStyles
       position={position}
@@ -48,10 +63,12 @@ const Link = ({
       height={height}
       maxWidth={maxWidth}
       minHeight={minHeight}
+      marginLeft={marginLeft}
+      hasHover={hasHover}
     >
       {title}
     </LinkStyles>
   );
-};
+}
 
 export default Link;
