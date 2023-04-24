@@ -1,33 +1,12 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import ArrowButton from '../../Components/ArrowButton';
 import Block from '../../Components/Block';
 import Link from '../../Components/Link';
-import logo from '../../assets/logo.svg';
-import voina from '../../assets/voina_mirov.png';
-import amur from '../../assets/amur_ugol.png';
-import bxg from '../../assets/bxg.png';
-import intro from '../../assets/intro_novosti.png';
-import kenetic from '../../assets/keenetic_1.png';
-import lentv from '../../assets/lentv1.png';
-import ArrowButton from '../../Components/ArrowButton';
-
-const projects = [
-  { id: 1, title: 'война миров', image: voina },
-  { id: 2, title: 'амур уголь', image: amur },
-  { id: 3, title: '3D сушилка', image: bxg },
-  { id: 4, title: 'новости интро', image: intro },
-  { id: 5, title: 'кенетик', image: kenetic },
-  { id: 6, title: 'лен тв', image: lentv },
-  { id: 7, title: 'война миров', image: voina },
-  { id: 8, title: 'амур уголь', image: amur },
-  { id: 9, title: '3D сушилка', image: bxg },
-  { id: 10, title: 'новости интро', image: intro },
-  { id: 11, title: 'кенетик', image: kenetic },
-  { id: 12, title: 'лен тв', image: lentv },
-];
+import Text from '../../Components/Text';
 
 export const BlockHover = styled.div`
-  display: none;
+  display: block;
   position: absolute;
   top: 0;
   left: 0;
@@ -42,62 +21,106 @@ export const BlockHover = styled.div`
   z-index: 2;
 `;
 
-function Hero() {
-  const [startIndex, setStartIndex] = useState(0);
+function ProjectList({ projects }) {
+  const [startIndexByCategory, setStartIndexByCategory] = useState({});
+  const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
 
-  const handlePrev = () => {
-    setStartIndex((startIndex - 1 + projects.length) % projects.length);
+  // Initialize startIndexByCategory with 0 for each category
+  useEffect(() => {
+    const startIndexByCategoryObj = {};
+    projects.forEach((category, i) => {
+      startIndexByCategoryObj[i] = 0;
+    });
+    setStartIndexByCategory(startIndexByCategoryObj);
+  }, [projects]);
+
+  const handleCategoryChange = (index) => {
+    setStartIndexByCategory((prevState) => ({
+      ...prevState,
+      [currentCategoryIndex]: startIndexByCategory[currentCategoryIndex],
+      [index]: startIndexByCategory[index] || 0,
+    }));
+    setCurrentCategoryIndex(index);
   };
 
-  const handleNext = () => {
-    setStartIndex((startIndex + 1) % projects.length);
+  const handlePrev = (categoryIndex) => {
+    const newIndex =
+      (startIndexByCategory[categoryIndex] - 1 + projects[categoryIndex].length) %
+      projects[categoryIndex].length;
+    setStartIndexByCategory((prevIndexes) => ({
+      ...prevIndexes,
+      [categoryIndex]: newIndex,
+    }));
   };
 
-  let visibleProjects = projects.slice(startIndex, startIndex + 3);
-
-  // If there are less than 3 projects left at the end of the list,
-  // add projects from the beginning of the list to fill the empty space.
-  if (visibleProjects.length < 3) {
-    visibleProjects = [...visibleProjects, ...projects.slice(0, 3 - visibleProjects.length)];
-  }
+  const handleNext = (categoryIndex) => {
+    const newIndex =
+      (startIndexByCategory[categoryIndex] + 1) % projects[categoryIndex].length;
+    setStartIndexByCategory((prevIndexes) => ({
+      ...prevIndexes,
+      [categoryIndex]: newIndex,
+    }));
+  };
+  const visibleProjectsByCategory = projects.map((category, i) => {
+    let visibleProjects = category.slice(startIndexByCategory[i], startIndexByCategory[i] + 3);
+    if (visibleProjects.length < 3) {
+      visibleProjects = [...visibleProjects, ...category.slice(0, 3 - visibleProjects.length)];
+    }
+    return visibleProjects;
+  });
 
   return (
-    <Block maxHeight="91vh" bgColor="grey" position="relative">
-      <Block display="flex" flexWrap="nowrap" overflowX="hidden">
-        {visibleProjects.map((project) => (
-          <Block key={project.id} flex="0 0 calc(100% / 3)" hasHover={true}>
-            <Link
-              background={project.image}
-              width="100%"
-              height="20vw"
-              maxWidth="550px"
-              minHeight="280px"
-              marginLeft="0px"
-              hasHover={true}
-            >
-             
-            </Link>
-            <BlockHover>{project.title}</BlockHover>
-          </Block>
-        ))}
-      </Block>
-      {projects.length > 3 && (
-        <>
+    <>
+      {projects.map((category, i) => (
+        <div key={i}>
           <Block
-            position="absolute"
-            top="50%"
-            left="10px"
-            transform="translateY(-50%)"
-            onClick={handlePrev}
+            display="flex"
+            bgColor="black"
+            justifyContent="center"
+            alignItems="center"
+            height="80px"
           >
-            {'<'}
+            <Text color="white" fontSize="30px">
+              {category[i].category.toUpperCase()}
+            </Text>
           </Block>
-          <ArrowButton direction="left" onClick={handlePrev} />
-          <ArrowButton direction="right" onClick={handleNext} />
-        </>
-      )}
-    </Block>
+          <Block maxHeight="91vh" bgColor="grey" position="relative">
+            <Block display="flex" flexWrap="nowrap" overflowX="hidden">
+              {visibleProjectsByCategory[i].map((project) => (
+                <Block key={project.id} flex="0 0 calc(100% / 3)" hasHover>
+                  <Link
+                    background={project.image}
+                    width="100%"
+                    height="20vw"
+                    maxWidth="550px"
+                    minHeight="280px"
+                    marginLeft="0px"
+                    hasHover
+                    onClick={() => console.log('test', project.id)}
+                  />
+                  {/* <BlockHover>{project.category}</BlockHover> */}
+                </Block>
+              ))}
+            </Block>
+            <ArrowButton
+              direction="left"
+              onClick={() => {
+                handleCategoryChange(i);
+                handlePrev(i);
+              }}
+            />
+            <ArrowButton
+              direction="right"
+              onClick={() => {
+                handleCategoryChange(i);
+                handleNext(i);
+              }}
+            />
+          </Block>
+        </div>
+      ))}
+    </>
   );
 }
 
-export default Hero;
+export default ProjectList;

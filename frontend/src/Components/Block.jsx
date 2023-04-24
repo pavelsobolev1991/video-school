@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import {BlockHover} from '../modules/ProjectList/ProjectList'
+import { BlockHover } from '../modules/ProjectList/ProjectList';
 
 const StyledBlock = styled.div`
   display: ${({ display }) => display || 'block'};

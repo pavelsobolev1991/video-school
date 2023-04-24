@@ -5,7 +5,7 @@ function App() {
   useEffect(() => {
     fetch('/api')
       .then((res) => res.json())
-      .then((res) => console.log(res));
+      .then((res) => res);
   });
   return <Main />;
 }

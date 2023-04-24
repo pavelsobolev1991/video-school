@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import {BlockHover} from '../modules/ProjectList/ProjectList'
+import { BlockHover } from '../modules/ProjectList/ProjectList';
 
 const LinkStyles = styled.a`
   display: block;
@@ -12,9 +12,7 @@ const LinkStyles = styled.a`
   max-height: ${({ maxHeight }) => maxHeight || ''};
   margin-left: ${({ marginLeft }) => marginLeft || '30px'};;
   cursor: pointer;
-  // &:hover {
-  //   text-decoration: underline;
-  // }
+
   ${(props) =>
     props.background &&
     css`
@@ -51,8 +49,15 @@ function Link({
   minHeight,
   marginLeft,
   children,
-  hasHover
+  hasHover,
+  onClick,
 }) {
+  // function handleClick(event) {
+  //   if (onClick) {
+  //     console.log('test click')
+  //   }
+  // }
+
   return (
     <LinkStyles
       position={position}
@@ -65,6 +70,7 @@ function Link({
       minHeight={minHeight}
       marginLeft={marginLeft}
       hasHover={hasHover}
+      onClick={onClick}
     >
       {title}
     </LinkStyles>
