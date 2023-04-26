@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import ArrowButton from '../../Components/ArrowButton';
+import Modal from '../../Components/Modal';
 import Block from '../../Components/Block';
 import Link from '../../Components/Link';
 import Text from '../../Components/Text';
@@ -24,8 +25,9 @@ export const BlockHover = styled.div`
 function ProjectList({ projects }) {
   const [startIndexByCategory, setStartIndexByCategory] = useState({});
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  // Initialize startIndexByCategory with 0 for each category
   useEffect(() => {
     const startIndexByCategoryObj = {};
     projects.forEach((category, i) => {
@@ -69,10 +71,15 @@ function ProjectList({ projects }) {
     return visibleProjects;
   });
 
+  const handleProjectClick = (project) => {
+    setSelectedProject(project);
+    setShowModal(true);
+  };
+
   return (
     <>
       {projects.map((category, i) => (
-        <div key={i}>
+        <div key={category}>
           <Block
             display="flex"
             bgColor="black"
@@ -96,7 +103,7 @@ function ProjectList({ projects }) {
                     minHeight="280px"
                     marginLeft="0px"
                     hasHover
-                    onClick={() => console.log('test', project.id)}
+                    onClick={() => handleProjectClick(project)}
                   />
                   {/* <BlockHover>{project.category}</BlockHover> */}
                 </Block>
@@ -119,6 +126,25 @@ function ProjectList({ projects }) {
           </Block>
         </div>
       ))}
+      {showModal && (
+        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+          <Block display="flex" flexDirection="column" alignItems="center" justifyContent="center" maxWidth="300px">
+            <Block>
+              <Text fontSize="30px" fontWeight="700">
+                Проект (
+                {selectedProject.category}
+                ):
+                {' '}
+              </Text>
+              <Text fontSize="30px" fontWeight="700">{selectedProject.title}</Text>
+            </Block>
+            <Block display="flex" margin="20px 0 20px 0"><img src={selectedProject.image} style={{ maxWidth: '100%' }} /></Block>
+            <Text fontSize="20px" fontWeight="700">Описание проекта:</Text>
+            <Block margin="20px 0 0 0"><Text fontSize="20px">{selectedProject.description}</Text></Block>
+            {/* <Button onClick={() => setShowModal(false)}>Закрыть</Button> */}
+          </Block>
+        </Modal>
+      )}
     </>
   );
 }

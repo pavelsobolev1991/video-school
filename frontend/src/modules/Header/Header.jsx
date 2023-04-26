@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
-import logo from '../../assets/logo.svg';
-import bxg from '../../assets/bxg.png';
+import React from 'react';
 import Block from '../../Components/Block';
 import NavBlock from '../../Components/NavBlock';
 import Link from '../../Components/Link';
@@ -26,12 +24,12 @@ function Header() {
       >
         <p style={{ color: 'white', fontSize: '25px' }}>LOGO</p>
         <NavBlock display="flex" flexDirection="row" flex="1" justifyContent="flex-end">
-          <Link title="Портфолио" />
-          <Link title="Услуги" />
-          <Link title="О студии" />
-          <Link title="О школе" />
-          <Link title="Блог" />
-          <Link title="Контакты" />
+          <Link href="#" title="Портфолио" />
+          <Link href="#" title="Услуги" />
+          <Link href="#" title="О студии" />
+          <Link href="#" title="О школе" />
+          <Link href="#" title="Блог" />
+          <Link href="#" title="Контакты" />
         </NavBlock>
       </Block>
     </Block>
