@@ -21,6 +21,7 @@ const StyledBlock = styled.div`
   overflow: ${({ overflow }) => overflow || 'inherit'};
   font-size: ${({ fontSize }) => fontSize || '14px'};
   color: ${({ color }) => color || ''};
+  z-index: ${({ zIndex }) => zIndex || ''};
 
   ${(props) =>
     props.background &&
@@ -81,6 +82,7 @@ function Block({
   top,
   right,
   hasHover,
+  zIndex
 }) {
   return (
     <StyledBlock
@@ -107,6 +109,7 @@ function Block({
       top={top}
       right={right}
       hasHover={hasHover}
+      zIndex={zIndex}
     >
       {children}
     </StyledBlock>

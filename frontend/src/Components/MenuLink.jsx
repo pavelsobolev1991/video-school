@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { BlockHover } from '../modules/ProjectList/ProjectList';
+import Link from './Link';
 
 const LinkStyles = styled.a`
   display: block;
@@ -10,33 +10,35 @@ const LinkStyles = styled.a`
   height: ${({ height }) => height || ''};
   max-width: ${({ maxWidth }) => maxWidth || ''};
   max-height: ${({ maxHeight }) => maxHeight || ''};
-  margin-left: ${({ marginLeft }) => marginLeft || '30px'};;
+  margin-left: ${({ marginLeft }) => marginLeft || '30px'};
   cursor: pointer;
 
-  ${(props) =>
-    props.background &&
-    css`
-      background-image: url(${props.background});
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: 50% 50%;
-    `}
-    ${({ hasHover }) =>
-    hasHover &&
-    css`
-      &:hover {
-        ${BlockHover} {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          opacity: 0.5;
-          z-index:10;
-        }
-      }
-    `}
+  &:hover {
+    .submenu {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
 `;
 
-function Link({
+const Submenu = styled.div`
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -30px;
+  width: 200px;
+  height: 150px;
+  background-color: black;
+  padding-top: 30px;
+`;
+
+const MenuItem = styled(Link)`
+  display: block;
+  padding: 40px 0;
+`;
+
+function MenuLink({
   href,
   title,
   position,
@@ -52,7 +54,6 @@ function Link({
   hasHover,
   onClick,
 }) {
-
   return (
     <LinkStyles
       position={position}
@@ -68,8 +69,15 @@ function Link({
       onClick={onClick}
     >
       {title}
+      {title === 'Услуги' && (
+        <Submenu className="submenu">
+          <MenuItem href="#" title="3D ролики" />
+          <MenuItem href="#" title="Моушн-дизайн" />
+          <MenuItem href="#" title="Арты" />
+        </Submenu>
+      )}
     </LinkStyles>
   );
 }
 
-export default Link;
+export default MenuLink;
