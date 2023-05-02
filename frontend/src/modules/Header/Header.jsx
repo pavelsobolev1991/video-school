@@ -2,9 +2,11 @@ import React from 'react';
 import Block from '../../Components/Block';
 import NavBlock from '../../Components/NavBlock';
 import Link from '../../Components/Link';
-import MenuLink from '../../Components/MenuLink';
+import RouterLink from '../../Components/RouterLink';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <Block
       bgColor="black"
@@ -26,8 +28,8 @@ function Header() {
       >
         <p style={{ color: 'white', fontSize: '25px' }}>LOGO</p>
         <NavBlock display="flex" flexDirection="row" flex="1" justifyContent="flex-end">
-          <Link href="#" title="Портфолио" />
-          <MenuLink href="#" title="Услуги" />
+          <RouterLink color="white" to={'/'}>Портфолио</RouterLink>
+          <RouterLink color="white" to={'/uslugi'} title="Услуги">Услуги</RouterLink>
           <Link href="#" title="О студии" />
           <Link href="#" title="О школе" />
           <Link href="#" title="Блог" />

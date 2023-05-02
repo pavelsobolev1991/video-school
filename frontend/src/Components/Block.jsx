@@ -22,6 +22,7 @@ const StyledBlock = styled.div`
   font-size: ${({ fontSize }) => fontSize || '14px'};
   color: ${({ color }) => color || ''};
   z-index: ${({ zIndex }) => zIndex || ''};
+  border:  ${({ border }) => border || ''};
 
   ${(props) =>
     props.background &&
@@ -82,6 +83,7 @@ function Block({
   top,
   right,
   hasHover,
+  border,
   zIndex
 }) {
   return (
@@ -110,6 +112,7 @@ function Block({
       right={right}
       hasHover={hasHover}
       zIndex={zIndex}
+      border={border}
     >
       {children}
     </StyledBlock>

@@ -1,7 +1,8 @@
-import styled, { css } from 'styled-components';
-import Link from './Link';
+import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-const LinkStyles = styled.a`
+
+const LinkStyles = styled(Link)`
   display: block;
   position: relative;
   font-family: ${({ font }) => font || ''};
@@ -11,9 +12,11 @@ const LinkStyles = styled.a`
   max-width: ${({ maxWidth }) => maxWidth || ''};
   max-height: ${({ maxHeight }) => maxHeight || ''};
   margin-left: ${({ marginLeft }) => marginLeft || '30px'};
+  text-decoration: none;
   cursor: pointer;
 
   &:hover {
+    color: red;
     .submenu {
       display: flex;
       flex-direction: column;
@@ -30,16 +33,10 @@ const Submenu = styled.div`
   width: 200px;
   height: 150px;
   background-color: black;
-  padding-top: 30px;
+  padding: 30px 10px 0 0px;
 `;
-
-const MenuItem = styled(Link)`
-  display: block;
-  padding: 40px 0;
-`;
-
-function MenuLink({
-  href,
+function RouterLink({
+  to,
   title,
   position,
   color,
@@ -54,8 +51,15 @@ function MenuLink({
   hasHover,
   onClick,
 }) {
+  const navigate = useNavigate();
+  const handleLinkClick = (event) => {
+    event.preventDefault();
+    navigate(to);
+  };
+
   return (
     <LinkStyles
+      to={to}
       position={position}
       color={color}
       font={font}
@@ -66,18 +70,12 @@ function MenuLink({
       minHeight={minHeight}
       marginLeft={marginLeft}
       hasHover={hasHover}
-      onClick={onClick}
+      onClick={(event)=> handleLinkClick(event)}
+      title={title}
     >
-      {title}
-      {title === 'Услуги' && (
-        <Submenu className="submenu">
-          <MenuItem href="#" title="3D ролики" />
-          <MenuItem href="#" title="Моушн-дизайн" />
-          <MenuItem href="#" title="Арты" />
-        </Submenu>
-      )}
+      {children}
     </LinkStyles>
   );
 }
 
-export default MenuLink;
+export default RouterLink;

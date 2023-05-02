@@ -10,7 +10,7 @@ const LinkStyles = styled.a`
   height: ${({ height }) => height || ''};
   max-width: ${({ maxWidth }) => maxWidth || ''};
   max-height: ${({ maxHeight }) => maxHeight || ''};
-  margin-left: ${({ marginLeft }) => marginLeft || '30px'};;
+  margin-left: ${({ marginLeft }) => marginLeft || '30px'};
   cursor: pointer;
 
   ${(props) =>
