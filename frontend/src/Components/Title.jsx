@@ -7,7 +7,7 @@ const TitleStyles = styled.h1`
 `;
 
 function Title({
-  children, color, fontSize, fontWeight,
+  children, color, fontSize, fontWeight, 
 }) {
   return (
     <TitleStyles

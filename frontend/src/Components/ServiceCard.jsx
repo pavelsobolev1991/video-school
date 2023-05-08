@@ -1,24 +1,28 @@
-// import styled from 'styled-components';
-// import
+import styled from 'styled-components';
+import Block from './Block';
+import Button from './Button';
+import Text from './Text';
 
-// const TitleStyles = styled.h1`
-//   color: ${({ color }) => color || ''};
-//   font-size: ${({ fontSize }) => fontSize || ''};
-//   font-weight: ${({ fontWeight }) => fontWeight || ''};
-// `;
+function ServiceCard({
+  title, description, price, children, onClick
+}) {
+  return (
+    <Block
+      display="flex"
+      flexDirection="column"
+      border="1px solid white"
+      margin="20px 0 0 0"
+      padding="20px"
+      justifyContent="center"
+      alignItems="center"
+    >  
+      <Text color="white" fontSize="20px">{title}</Text>
+      <Text color="white">{description}</Text>
+      <Text fontSize="30px" color="white">{price}</Text>
+      <Button color="#e28e10" padding="14px 70px" onClick={onClick}>Заказать услугу</Button>
+      {children}
+    </Block>
+  );
+}
 
-// function ServiceCard({
-//   children, color, fontSize, fontWeight,
-// }) {
-//   return (
-//     <TitleStyles
-//       color={color}
-//       fontSize={fontSize}
-//       fontWeight={fontWeight}
-//     >
-//       {children}
-//     </TitleStyles>
-//   );
-// }
-
-// export default ServiceCard;
+export default ServiceCard;

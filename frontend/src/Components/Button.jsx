@@ -8,9 +8,24 @@ const ButtonStyles = styled.div`
   height: ${({ height }) => height || ''};
   max-width: ${({ maxWidth }) => maxWidth || ''};
   max-height: ${({ maxHeight }) => maxHeight || ''};
-  margin-left: ${({ marginLeft }) => marginLeft || '30px'};
+  margin-left: ${({ marginLeft }) => marginLeft || ''};
+  padding: ${({ padding }) => padding || ''};
   text-decoration: none;
   cursor: pointer;
+
+  button {
+    min-width: ${({ minWidth }) => minWidth || '140px'};
+    transition: all 0.2s ease-in-out;
+    font-size: 18px;
+    color: #ebecf0; 
+    min-height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 320px;
+    padding: 6px 10px;
+    background-color: #e28e10;
+    cursor: pointer;
+  }
 `;
 
 function Button({
@@ -26,6 +41,7 @@ function Button({
   marginLeft,
   children,
   onClick,
+  padding
 }) {
   return (
     <ButtonStyles>

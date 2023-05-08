@@ -18,11 +18,13 @@ const StyledBlock = styled.div`
   flex: ${({ flex }) => flex || ''};
   flex-direction: ${({ flexDirection }) => flexDirection || 'row'};
   flex-wrap: ${({ flexWrap }) => flexWrap || 'nowrap'};
+  gap: ${({ gap }) => gap || ''};
   overflow: ${({ overflow }) => overflow || 'inherit'};
   font-size: ${({ fontSize }) => fontSize || '14px'};
   color: ${({ color }) => color || ''};
   z-index: ${({ zIndex }) => zIndex || ''};
   border:  ${({ border }) => border || ''};
+
 
   ${(props) =>
     props.background &&
@@ -84,7 +86,8 @@ function Block({
   right,
   hasHover,
   border,
-  zIndex
+  zIndex,
+  gap
 }) {
   return (
     <StyledBlock
@@ -113,6 +116,7 @@ function Block({
       hasHover={hasHover}
       zIndex={zIndex}
       border={border}
+      gap={gap}
     >
       {children}
     </StyledBlock>

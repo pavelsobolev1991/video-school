@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 const ModalOverlay = styled.div`
   position: fixed;
-  top: 0;
+  top:  ${({ top }) =>  top || 0};
   left: 0;
   width: 100%;
-  height: 100%;
+  height: ${({  overlayHeight}) =>  overlayHeight || '100%'};
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
@@ -17,7 +17,7 @@ const ModalOverlay = styled.div`
 
 const ModalContent = styled.div`
   width: 60%;
-  height: 80%;
+  height: ${({ contentHeight }) => contentHeight || '80%'};
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   padding: 30px;
@@ -33,21 +33,14 @@ const ModalCloseButton = styled.button`
   font-size: 1.5rem;
 `;
 
-// const ModalContentScroll = styled.div`
-//   height: 100%;
-//   overflow-y: auto;
-// `;
-
-function Modal({ isOpen, onClose, children }) {
+function Modal({ isOpen, onClose, overlayHeight, top, contentHeight, children }) {
   if (!isOpen) return null;
 
   return (
-    <ModalOverlay>
-      <ModalContent>
+    <ModalOverlay overlayHeight={overlayHeight} top={top}>
+      <ModalContent contentHeight={contentHeight}>
         <ModalCloseButton onClick={onClose}>×</ModalCloseButton>
-        {/* <ModalContentScroll> */}
         {children}
-        {/* </ModalContentScroll> */}
       </ModalContent>
     </ModalOverlay>
   );

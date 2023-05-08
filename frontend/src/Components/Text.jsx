@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TextStyles = styled.span`
+const TextStyles = styled.p`
   color: ${({ color }) => color || ''};
   font-size: ${({ fontSize }) => fontSize || ''};
   font-weight: ${({ fontWeight }) => fontWeight || ''};
