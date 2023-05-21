@@ -8,6 +8,7 @@ import Button from '../../Components/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { serviceThunk } from '../../store/slices/service';
 import InputMask from 'react-input-mask';
+import { formatPhoneNumber } from '../../functions/utils';
 
 const FormContent = styled.form`
   display: flex;
@@ -16,10 +17,25 @@ const FormContent = styled.form`
   justify-content: center;
 `;
 
+const nameInputOptions = {
+  required: 'Введите имя',
+  pattern: {
+    value: /^[a-zA-Zа-яА-Я]+$/,
+    message: 'Имя должно содержать только буквы русского или английского алфавита',
+  },
+};
+
 const phoneInputOptions = {
   required: 'Введите номер телефона',
   validate: (value) => formatPhoneNumber(value).length === 10 || 'Введено менее 10 символов',
 };
+
+const linkInputOptions = {
+  required: 'Введите ссылку',
+  pattern: {
+    message: 'Введите адрес сайта компании или ссылку на проект',
+  },
+}
 
 function ModalForm({ showModal, onClose }) {
   const dispatch = useDispatch();
@@ -42,7 +58,15 @@ function ModalForm({ showModal, onClose }) {
         <Text fontSize="25px" color="black">
           Заказ услуги
         </Text>
-        <Input name="name" placeholder="Как к вам обращаться?" register={register} />
+        <Controller
+          name="username"
+          control={control}
+          rules={nameInputOptions}
+          
+          render={({ field: { onChange, onBlur, value = '', name } }) => (
+            <Input name={name} placeholder="Как к вам обращаться?" errorMessage={errors?.username?.message} register={register} />
+          )}
+        ></Controller>
         <Controller
           name="phone"
           control={control}
@@ -72,29 +96,19 @@ function ModalForm({ showModal, onClose }) {
         <Controller
           name="link"
           control={control}
-          rules={phoneInputOptions}
+          rules={linkInputOptions}
           render={({ field: { onChange, onBlur, value = '', name } }) => (
             <Input
               name={name}
-              label="Номер телефона"
+              label="Ссылка на проект"
               type="link"
+              placeholder="Ссылка на сайт компании или проект"
               register={register}
-              errorMessage={errors?.phone?.message}
-              options={phoneInputOptions}
-              renderCustomInput={() => (
-                <InputMask
-                  name={name}
-                  mask="https://*************"
-                  placeholder="Ссылка на проект или сайт компании"
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                />
-              )}
+              errorMessage={errors?.link?.message}
             />
           )}
         />
-        <Button text="Отправить" type="submit">
+        <Button text="Отправить" type="submit" disabled={!isValid}>
           Заказать
         </Button>
       </FormContent>

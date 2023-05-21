@@ -1,5 +1,6 @@
 import { isFunction } from 'lodash';
 import styled from 'styled-components';
+import InputErrorMessage from './InputErrorMessage';
 
 const InputStyles = styled.div`
   display: flex;
@@ -53,6 +54,7 @@ const Input = ({
           {...attributes} // eslint-disable-line react/jsx-props-no-spreading
         />
       )}
+       {errorMessage && <InputErrorMessage text={errorMessage} />}
     </InputStyles>
   );
 };

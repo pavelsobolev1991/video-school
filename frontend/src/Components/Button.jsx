@@ -1,6 +1,8 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
-const ButtonStyles = styled.div`
+const ButtonStyles = styled.div.attrs(attrs => ({
+  disabled: attrs.disabled || false,
+}))`
   display: flex;
   font-family: ${({ font }) => font || ''};
   color: ${({ color }) => color || '#FFFFFF'};
@@ -13,6 +15,8 @@ const ButtonStyles = styled.div`
   text-decoration: none;
   cursor: pointer;
 
+ 
+
   button {
     min-width: ${({ minWidth }) => minWidth || '140px'};
     transition: all 0.2s ease-in-out;
@@ -24,7 +28,7 @@ const ButtonStyles = styled.div`
     border-radius: 320px;
     padding: 6px 10px;
     background-color: #e28e10;
-    cursor: pointer;
+    cursor: pointer;    
   }
 `;
 
@@ -41,11 +45,12 @@ function Button({
   marginLeft,
   children,
   onClick,
-  padding
+  padding,
+  disabled
 }) {
   return (
     <ButtonStyles>
-      <button onClick={onClick}>{children}</button>
+      <button onClick={onClick} disabled={disabled}>{children}</button>
     </ButtonStyles>
   );
 }
