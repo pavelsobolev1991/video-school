@@ -26,7 +26,7 @@ function Header() {
         alignItems="center"
         margin="0 auto"
       >
-        <p style={{ color: 'white', fontSize: '25px' }}>LOGO</p>
+        <p style={{ color: 'white', fontSize: '25px' }}>Trickster</p>
         <NavBlock display="flex" flexDirection="row" flex="1" justifyContent="flex-end">
           <RouterLink color="white" to={'/'}>Портфолио</RouterLink>
           <RouterLink color="white" to={'/uslugi'} title="Услуги">Услуги</RouterLink>
