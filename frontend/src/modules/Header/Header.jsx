@@ -30,10 +30,10 @@ function Header() {
         <NavBlock display="flex" flexDirection="row" flex="1" justifyContent="flex-end">
           <RouterLink color="white" to={'/'}>Портфолио</RouterLink>
           <RouterLink color="white" to={'/uslugi'} title="Услуги">Услуги</RouterLink>
-          <Link href="#" title="О студии" />
+          {/* <Link href="#" title="О студии" />
           <Link href="#" title="О школе" />
           <Link href="#" title="Блог" />
-          <Link href="#" title="Контакты" />
+          <Link href="#" title="Контакты" /> */}
         </NavBlock>
       </Block>
     </Block>
