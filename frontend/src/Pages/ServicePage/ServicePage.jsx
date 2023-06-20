@@ -11,10 +11,7 @@ import ModalForm from '../../modules/ModalForm/ModalForm';
 
 function ServicePage({ title }) {
   const [showModal, setShowModal] = useState(false);
-
-  const handleServiceClick = (project) => {
-    setShowModal(true);
-  };
+  const [serviceData, setServiceData]=useState()
 
   return (
     <>
@@ -65,8 +62,11 @@ function ServicePage({ title }) {
           voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
           cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id
           est laborum et dolorum fuga."
+            category="Промо"
             price="5000$"
-            onClick={handleServiceClick}
+            setShowModal={setShowModal}
+            setServiceData={setServiceData}
+            // onClick={()=>handleServiceClick(title)}
           />
           <ServiceCard
             title="Фотоконтент + Видеоконтент"
@@ -74,8 +74,11 @@ function ServicePage({ title }) {
           voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
           cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id
           est laborum et dolorum fuga."
+            category="Промо"
             price="10 000$"
-            onClick={handleServiceClick}
+            setShowModal={setShowModal}
+            setServiceData={setServiceData}
+            // onClick={handleServiceClick}
           />
           <ServiceCard
             title="Фотоконтент + Видеоконтент + Анимация"
@@ -83,12 +86,15 @@ function ServicePage({ title }) {
           voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
           cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id
           est laborum et dolorum fuga."
+            category="Промо"
             price="15 000$"
-            onClick={handleServiceClick}
+            setShowModal={setShowModal}
+            setServiceData={setServiceData}
+            // onClick={handleServiceClick}
           />
         </Block>
       </Block>
-      {showModal && <ModalForm showModal={showModal} onClose={() => setShowModal(false)} />}
+      {showModal && <ModalForm showModal={showModal} serviceData={serviceData} onClose={() => setShowModal(false)} />}
       <Footer />
     </>
   );

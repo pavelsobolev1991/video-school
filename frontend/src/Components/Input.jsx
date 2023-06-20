@@ -41,6 +41,7 @@ const Input = ({
     <InputStyles>
       {label && (
         <label htmlFor={name}>
+          {label}
         </label>
       )}
       {renderCustomInput && isFunction(renderCustomInput) ? (

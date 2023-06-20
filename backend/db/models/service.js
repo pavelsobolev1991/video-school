@@ -26,6 +26,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.TEXT,
     },
+    deadline: {
+      allowNull: false,
+      type: DataTypes.TEXT,
+    },
+    serviceName: {
+      allowNull: false,
+      type: DataTypes.TEXT,
+    }
   }, {
     sequelize,
     modelName: 'Service',
