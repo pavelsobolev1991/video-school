@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import Modal from '../../Components/Modal';
 import { Controller, useForm } from 'react-hook-form';
 import Input from '../../Components/Input';
-import Block from '../../Components/Block';
 import Text from '../../Components/Text';
 import Button from '../../Components/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { serviceThunk } from '../../store/slices/service';
 import InputMask from 'react-input-mask';
 import { formatPhoneNumber } from '../../functions/utils';
+import { useState } from 'react';
+import MessageSuccess from '../../Components/Message';
 
 const FormContent = styled.form`
   display: flex;
@@ -20,8 +21,8 @@ const FormContent = styled.form`
 const nameInputOptions = {
   required: 'Введите имя',
   pattern: {
-    value: /^[a-zA-Zа-яА-Я]+$/,
-    message: 'Имя должно содержать только буквы русского или английского алфавита',
+    value: /^[а-яА-Я]+$/,
+    message: 'Имя должно содержать только буквы русского алфавита',
   },
 };
 
@@ -35,83 +36,124 @@ const linkInputOptions = {
   pattern: {
     message: 'Введите адрес сайта компании или ссылку на проект',
   },
-}
+};
 
-function ModalForm({ showModal, onClose }) {
+const deadlineInputOptions = {
+  required: 'Установите дату дедлайна',
+  validate: (value) => !!value || 'Выберите дату дедлайна',
+};
+
+function ModalForm({ showModal, onClose,serviceData }) {
   const dispatch = useDispatch();
+  const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
+    trigger,
   } = useForm({
     mode: 'onChange',
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    data={...data, serviceName: serviceData.category+'/'+serviceData.title}
     dispatch(serviceThunk(data));
+    setSuccessMessageVisible(true);
   };
 
   return (
-    <Modal isOpen={showModal} onClose={onClose} overlayHeight="60%" contentHeight="100%" top="20%">
-      <FormContent onSubmit={handleSubmit(onSubmit)}>
-        <Text fontSize="25px" color="black">
-          Заказ услуги
-        </Text>
-        <Controller
-          name="username"
-          control={control}
-          rules={nameInputOptions}
-          
-          render={({ field: { onChange, onBlur, value = '', name } }) => (
-            <Input name={name} placeholder="Как к вам обращаться?" errorMessage={errors?.username?.message} register={register} />
-          )}
-        ></Controller>
-        <Controller
-          name="phone"
-          control={control}
-          rules={phoneInputOptions}
-          render={({ field: { onChange, onBlur, value = '', name } }) => (
-            <Input
-              name={name}
-              label="Номер телефона"
-              placeholder="+7 xxx xxx xx xx"
-              type="tel"
-              register={register}
-              errorMessage={errors?.phone?.message}
-              options={phoneInputOptions}
-              renderCustomInput={() => (
-                <InputMask
-                  name={name}
-                  placeholder="+7 (999) 999-99-99"
-                  mask="+7\(999\)\-999\-99-99"
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                />
-              )}
-            />
-          )}
-        />
-        <Controller
-          name="link"
-          control={control}
-          rules={linkInputOptions}
-          render={({ field: { onChange, onBlur, value = '', name } }) => (
-            <Input
-              name={name}
-              label="Ссылка на проект"
-              type="link"
-              placeholder="Ссылка на сайт компании или проект"
-              register={register}
-              errorMessage={errors?.link?.message}
-            />
-          )}
-        />
-        <Button text="Отправить" type="submit" disabled={!isValid}>
-          Заказать
-        </Button>
-      </FormContent>
+    <Modal
+      isOpen={showModal}
+      onClose={onClose}
+      contentHeight="80%"
+      marginTop="25%"
+      marginBottom="25%"
+    >
+      {successMessageVisible ? (
+        <MessageSuccess serviceData={serviceData}/>
+      ) : (
+        <FormContent onSubmit={handleSubmit(onSubmit)}>
+          <Text fontSize="25px" color="black">
+            Заказ услуги
+          </Text>
+          {serviceData.category+`/`+serviceData.title}
+          <Controller
+            name="username"
+            control={control}
+            rules={nameInputOptions}
+            render={({ field: { onBlur, value = '', name } }) => (
+              <Input
+                label="Ваше Имя"
+                name={name}
+                placeholder="Как к вам обращаться?"
+                errorMessage={errors?.username?.message}
+                options={nameInputOptions}
+                register={register}
+              />
+            )}
+          ></Controller>
+          <Controller
+            name="phone"
+            control={control}
+            rules={phoneInputOptions}
+            render={({ field: { onChange, onBlur, value = '', name } }) => (
+              <Input
+                name={name}
+                label="Номер телефона"
+                placeholder="+7 xxx xxx xx xx"
+                type="tel"
+                register={register}
+                errorMessage={errors?.phone?.message}
+                options={phoneInputOptions}
+                renderCustomInput={() => (
+                  <InputMask
+                    name={name}
+                    placeholder="+7 (999) 999-99-99"
+                    mask="+7\(999\)\-999\-99-99"
+                    value={value}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  />
+                )}
+              />
+            )}
+          />
+          <Controller
+            name="link"
+            control={control}
+            rules={linkInputOptions}
+            render={({ field: { onChange, onBlur, value = '', name } }) => (
+              <Input
+                name={name}
+                label="Ссылка"
+                type="link"
+                placeholder="Ссылка на сайт компании или проект"
+                register={register}
+                errorMessage={errors?.link?.message}
+              />
+            )}
+          />
+          <Controller
+            name="deadline"
+            control={control}
+            rules={deadlineInputOptions}
+            render={({ field: { onChange, onBlur, value = '', name } }) => (
+              <Input
+                type="date"
+                name={name}
+                label="Установите дедлайн"
+                placeholder="Дедлайн"
+                register={register}
+                errorMessage={errors?.deadline?.message}
+              />
+            )}
+          />
+          <Button text="Отправить" type="submit">
+            Заказать
+          </Button>
+        </FormContent>
+      )}
     </Modal>
   );
 }

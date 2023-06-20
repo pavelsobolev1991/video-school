@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 const ModalOverlay = styled.div`
   position: fixed;
-  top:  ${({ top }) =>  top || 0};
   left: 0;
+  top: 0;
   width: 100%;
-  height: ${({  overlayHeight}) =>  overlayHeight || '100%'};
+  height: ${({ overlayHeight }) =>  overlayHeight || '100%'};
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
@@ -17,7 +17,10 @@ const ModalOverlay = styled.div`
 
 const ModalContent = styled.div`
   width: 60%;
+  margin-top:  ${({ marginTop }) =>  marginTop || ''};
+  margin-bottom:  ${({ marginBottom }) =>  marginBottom || ''};
   height: ${({ contentHeight }) => contentHeight || '80%'};
+  max-height: 600px;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   padding: 30px;
@@ -33,12 +36,12 @@ const ModalCloseButton = styled.button`
   font-size: 1.5rem;
 `;
 
-function Modal({ isOpen, onClose, overlayHeight, top, contentHeight, children }) {
+function Modal({ isOpen, onClose, overlayHeight, marginTop, marginBottom, contentHeight, children }) {
   if (!isOpen) return null;
 
   return (
-    <ModalOverlay overlayHeight={overlayHeight} top={top}>
-      <ModalContent contentHeight={contentHeight}>
+    <ModalOverlay overlayHeight={overlayHeight} >
+      <ModalContent contentHeight={contentHeight} marginTop={marginTop} marginBottom={marginBottom}>
         <ModalCloseButton onClick={onClose}>×</ModalCloseButton>
         {children}
       </ModalContent>

@@ -4,8 +4,12 @@ import Button from './Button';
 import Text from './Text';
 
 function ServiceCard({
-  title, description, price, children, onClick
+  title, category, description, price, children, onClick,setShowModal,setServiceData
 }) {
+  const handleServiceClick = (title,category) => {
+    setServiceData({title, category})
+    setShowModal(true);
+  };
   return (
     <Block
       display="flex"
@@ -19,7 +23,7 @@ function ServiceCard({
       <Text color="white" fontSize="20px">{title}</Text>
       <Text color="white">{description}</Text>
       <Text fontSize="30px" color="white">{price}</Text>
-      <Button color="#e28e10" padding="14px 70px" onClick={onClick}>Заказать услугу</Button>
+      <Button color="#e28e10" padding="14px 70px" onClick={()=>handleServiceClick(title, category)}>Заказать услугу</Button>
       {children}
     </Block>
   );

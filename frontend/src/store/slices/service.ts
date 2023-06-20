@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const serviceThunk = createAsyncThunk('service', async (data) => {
-  console.log('serviceThunk');
   const response = await fetch(`/api/service`, {
     method: 'POST',
     headers: {

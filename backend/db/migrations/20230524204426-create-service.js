@@ -18,6 +18,12 @@ module.exports = {
       link: {
         type: Sequelize.TEXT
       },
+      deadline: {
+        type: Sequelize.TEXT,
+      },
+      serviceName: {
+        type: Sequelize.TEXT,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
