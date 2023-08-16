@@ -3,11 +3,12 @@ import styled, {css} from 'styled-components';
 const ButtonStyles = styled.div.attrs(attrs => ({
   disabled: attrs.disabled || false,
 }))`
-  display: flex;
+  display: ${({ display }) => display || 'flex'};
   font-family: ${({ font }) => font || ''};
   color: ${({ color }) => color || '#FFFFFF'};
   width: ${({ width }) => width || ''};
   height: ${({ height }) => height || ''};
+  min-width: ${({ minWidth }) => minWidth || ''};
   max-width: ${({ maxWidth }) => maxWidth || ''};
   max-height: ${({ maxHeight }) => maxHeight || ''};
   margin-left: ${({ marginLeft }) => marginLeft || ''};
@@ -18,21 +19,24 @@ const ButtonStyles = styled.div.attrs(attrs => ({
  
 
   button {
+    min-height: ${({ minHeight }) => minHeight  || '40px'};
     min-width: ${({ minWidth }) => minWidth || '140px'};
+    height: ${({ height }) => height || ''};
     transition: all 0.2s ease-in-out;
-    font-size: 18px;
+    font-size: ${({ fontSize }) => fontSize || '18px'};
     color: #ebecf0; 
-    min-height: 40px;
     border: none;
     outline: none;
     border-radius: 320px;
-    padding: 6px 10px;
+    padding: ${({ padding }) => padding || '6px 10px'}; ;
     background-color: #e28e10;
     cursor: pointer;    
   }
 `;
 
 function Button({
+  display,
+  fontSize,
   to,
   title,
   position,
@@ -40,6 +44,7 @@ function Button({
   font,
   width,
   height,
+  minWidth,
   maxWidth,
   minHeight,
   marginLeft,
@@ -49,8 +54,8 @@ function Button({
   disabled
 }) {
   return (
-    <ButtonStyles>
-      <button onClick={onClick} disabled={disabled}>{children}</button>
+    <ButtonStyles display={display} height={height} minWidth={minWidth}>
+      <button onClick={onClick} padding={padding} fontSize={fontSize} disabled={disabled} minWidth={minWidth} minHeight={minHeight} height={height}>{children}</button>
     </ButtonStyles>
   );
 }

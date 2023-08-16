@@ -8,6 +8,7 @@ import Button from '../../Components/Button';
 import ServiceCard from '../../Components/ServiceCard';
 import Modal from '../../Components/Modal';
 import ModalForm from '../../modules/ModalForm/ModalForm';
+import ServiceForm from '../../modules/ServiceForm/ServiceForm';
 
 function ServicePage({ title }) {
   const [showModal, setShowModal] = useState(false);
@@ -32,22 +33,7 @@ function ServicePage({ title }) {
           tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
           perferendis doloribus asperiores repellat.
         </Text>
-        <Block display="flex" flexDirection="row" gap="2%" border="1px solid white">
-          <Block>
-            <Title fontSize="30px" color="white">
-              Нам надо поговорить....
-            </Title>
-            <Text color="white">
-              Заполните форму, указав всё что хотите указать, а также вкратце опишите проект, чтобы
-              беседа была более конструктивной. Мы свяжемся с вами сразу как допьём кофе, включим
-              компьютер и прочтём письмо.
-            </Text>
-          </Block>
-
-          <Button color="#e28e10" padding="14px 70px">
-            Пука цика
-          </Button>
-        </Block>
+        <ServiceForm />
         <Text fontSize="25px" color="white">
           Промо
         </Text>
