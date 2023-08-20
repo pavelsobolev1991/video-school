@@ -26,12 +26,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.TEXT,
     },
+    description: {
+      allowNull: true,
+      type: DataTypes.TEXT,
+    },
     deadline: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.TEXT,
     },
     serviceName: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.TEXT,
     }
   }, {

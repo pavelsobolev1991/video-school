@@ -4,7 +4,6 @@ import Block from './Block';
 import Text from './Text';
 
 function MessageSuccess({ serviceData }) {
-  console.log('MessageSuccess serviceData', serviceData)
   return (
     <Block
       display="flex"
@@ -14,7 +13,11 @@ function MessageSuccess({ serviceData }) {
       margin="10% 0 0 0"
     >
       <img src={success} alt="" width="200px" height="200px" />
-      <Text fontSize="30px">Услуга {serviceData.category+`/`+serviceData.title} успешна заказана</Text>
+      <Text fontSize="30px">
+        {serviceData
+          ? `Услуга ${serviceData.category + `/` + serviceData.title} успешна заказана`
+          : 'Мы с вами свяжемся в ближайшее время'}
+      </Text>
     </Block>
   );
 }

@@ -44,15 +44,14 @@ const TextField = ({
         </label>
       )}
       <textarea
-        id={name}
         type="text"
         name={name}
         placeholder={placeholder}
         autoComplete="off"
-        ref={register(name, options)}
+        {...register(name, options)}
         {...attributes}
       />
-      {errorMessage && <span>{errorMessage}</span>}
+      {errorMessage && <InputErrorMessage text={errorMessage} />}
     </TextFieldStyles>
   );
 };

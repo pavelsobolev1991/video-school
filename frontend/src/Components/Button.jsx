@@ -29,7 +29,7 @@ const ButtonStyles = styled.div.attrs(attrs => ({
     outline: none;
     border-radius: 320px;
     padding: ${({ padding }) => padding || '6px 10px'}; ;
-    background-color: #e28e10;
+    background-color: ${({ bgColor }) => bgColor || '#e28e10'};
     cursor: pointer;    
   }
 `;
@@ -51,11 +51,12 @@ function Button({
   children,
   onClick,
   padding,
-  disabled
+  disabled,
+  bgColor
 }) {
   return (
-    <ButtonStyles display={display} height={height} minWidth={minWidth}>
-      <button onClick={onClick} padding={padding} fontSize={fontSize} disabled={disabled} minWidth={minWidth} minHeight={minHeight} height={height}>{children}</button>
+    <ButtonStyles display={display} height={height} minWidth={minWidth} bgColor={bgColor}>
+      <button onClick={onClick}  padding={padding} fontSize={fontSize} disabled={disabled} minWidth={minWidth} minHeight={minHeight} height={height}>{children}</button>
     </ButtonStyles>
   );
 }
