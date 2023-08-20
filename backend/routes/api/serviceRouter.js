@@ -10,7 +10,8 @@ chatId = 938200525;
 const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
 serviceRouter.post('/service', async (req, res) => {
-  const { username, phone, link, deadline, serviceName } = req.body.data;
+  const { username, phone, link, description, deadline, serviceName } =
+    req.body.data;
   await Service.create({
     username: username,
     phone: phone,
@@ -28,7 +29,11 @@ serviceRouter.post('/service', async (req, res) => {
 
   const params = {
     chat_id: chatId,
-    text: `Новый заказ услуги \n - ${serviceName}:\n\nИмя: ${username}\nТелефон: ${phone}\nСсылка: ${link}\nДедлайн: ${deadline}`,
+    text: `Новый заказ услуги \n - ${
+      serviceName ? serviceName : 'Заявка'
+    }:\n\nИмя: ${username}\nТелефон: ${phone}\nСсылка: ${link}\nОписание: ${
+      description ? description : 'отсутствует'
+    }\nДедлайн: ${deadline}`,
   };
 
   axios

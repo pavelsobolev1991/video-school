@@ -11,7 +11,6 @@ const serviceThunk = createAsyncThunk('service', async (data) => {
     })
   })
   const responseData = await response.text(); // Или response.json() если ожидается JSON
-  console.log('responseData', responseData);
 });
 
 export const serviceSlice = createSlice({
