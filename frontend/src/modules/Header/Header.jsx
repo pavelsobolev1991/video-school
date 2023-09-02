@@ -10,7 +10,7 @@ function Header() {
   return (
     <Block
       bgColor="black"
-      height="75px"
+      // height="75px"
       padding="0 20px 0 20px"
       position="fixed"
       left="0"
