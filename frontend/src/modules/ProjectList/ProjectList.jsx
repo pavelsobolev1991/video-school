@@ -22,6 +22,13 @@ export const BlockHover = styled.div`
   z-index: 2;
 `;
 
+const StyledIframe = styled.iframe`
+  width: 640px;
+  height: 480px;
+  allow: autoplay;
+  background-image: url('https://top-fon.com/uploads/posts/2023-01/1674865273_top-fon-com-p-fon-dlya-prezentatsii-chernii-matovii-157.jpg');
+`;
+
 function ProjectList({ projects }) {
   const [startIndexByCategory, setStartIndexByCategory] = useState({});
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
@@ -56,8 +63,7 @@ function ProjectList({ projects }) {
   };
 
   const handleNext = (categoryIndex) => {
-    const newIndex =
-      (startIndexByCategory[categoryIndex] + 1) % projects[categoryIndex].length;
+    const newIndex = (startIndexByCategory[categoryIndex] + 1) % projects[categoryIndex].length;
     setStartIndexByCategory((prevIndexes) => ({
       ...prevIndexes,
       [categoryIndex]: newIndex,
@@ -128,19 +134,31 @@ function ProjectList({ projects }) {
       ))}
       {showModal && (
         <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-          <Block display="flex" flexDirection="column" alignItems="center" justifyContent="center" maxWidth="300px">
+          <Block
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            maxWidth="300px"
+          >
             <Block>
               <Text fontSize="30px" fontWeight="700">
-                Проект (
-                {selectedProject.category}
-                ):
-                {' '}
+                Проект {selectedProject.category}: {selectedProject.title}
               </Text>
-              <Text fontSize="30px" fontWeight="700">{selectedProject.title}</Text>
             </Block>
-            <Block display="flex" margin="20px 0 20px 0"><img src={selectedProject.image} style={{ maxWidth: '100%' }} /></Block>
-            <Text fontSize="20px" fontWeight="700">Описание проекта:</Text>
-            <Block margin="20px 0 0 0"><Text fontSize="20px">{selectedProject.description}</Text></Block>
+            <Block display="flex" margin="20px 0 20px 0">
+              {selectedProject.url ? (
+                <StyledIframe src={selectedProject.url}></StyledIframe>
+              ) : (
+                <img src={selectedProject.image} style={{ maxWidth: '100%' }} />
+              )}
+            </Block>
+            <Text fontSize="20px" fontWeight="700">
+              Описание проекта:
+            </Text>
+            <Block margin="20px 0 0 0">
+              <Text fontSize="20px">{selectedProject.description}</Text>
+            </Block>
             {/* <Button onClick={() => setShowModal(false)}>Закрыть</Button> */}
           </Block>
         </Modal>
