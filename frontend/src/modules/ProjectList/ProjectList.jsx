@@ -5,6 +5,7 @@ import Modal from '../../Components/Modal';
 import Block from '../../Components/Block';
 import Link from '../../Components/Link';
 import Text from '../../Components/Text';
+import { useMediaQuery } from 'react-responsive'
 
 export const BlockHover = styled.div`
   display: block;
@@ -34,6 +35,11 @@ function ProjectList({ projects }) {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const isTablet = useMediaQuery({ minWidth: 721, maxWidth: 1000 });
+  const isMobile = useMediaQuery({ maxWidth: 720 });
+  const maxVisibleProjects = isTablet ? 2 : isMobile ? 1 : 3;
+  const flex = isTablet ? "0 0 calc(100% / 2)" : isMobile ? "0 0 100%" : "0 0 calc(100% / 3)"
+  const height = maxVisibleProjects === 2 ? '35vw' : maxVisibleProjects === 1 ? "65vw" : "21vw"
 
   useEffect(() => {
     const startIndexByCategoryObj = {};
@@ -70,9 +76,9 @@ function ProjectList({ projects }) {
     }));
   };
   const visibleProjectsByCategory = projects.map((category, i) => {
-    let visibleProjects = category.slice(startIndexByCategory[i], startIndexByCategory[i] + 3);
-    if (visibleProjects.length < 3) {
-      visibleProjects = [...visibleProjects, ...category.slice(0, 3 - visibleProjects.length)];
+    let visibleProjects = category.slice(startIndexByCategory[i], startIndexByCategory[i] + maxVisibleProjects);
+    if (visibleProjects.length < maxVisibleProjects) {
+      visibleProjects = [...visibleProjects, ...category.slice(0, maxVisibleProjects - visibleProjects.length)];
     }
     return visibleProjects;
   });
@@ -100,12 +106,11 @@ function ProjectList({ projects }) {
           <Block maxHeight="91vh" bgColor="grey" position="relative">
             <Block display="flex" flexWrap="nowrap" overflowX="hidden">
               {visibleProjectsByCategory[i].map((project) => (
-                <Block key={project.id} flex="0 0 calc(100% / 3)" hasHover>
+                <Block key={project.id} flex={flex} hasHover>
                   <Link
                     background={project.image}
                     width="100%"
-                    height="20vw"
-                    maxWidth="550px"
+                    height={height}
                     minHeight="280px"
                     marginLeft="0px"
                     hasHover
