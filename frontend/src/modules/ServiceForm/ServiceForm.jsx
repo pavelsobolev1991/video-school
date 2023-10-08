@@ -5,9 +5,11 @@ import Text from '../../Components/Text';
 import Button from '../../Components/Button';
 import ModalServiceForm from './ModalServiceForm/ModalServiceForm';
 import Modal from '../../Components/Modal';
+import { useMediaQuery } from 'react-responsive'
 
 function ServiceForm({}) {
   const [showModal, setShowModal] = useState(false);
+  const breakpointOne = useMediaQuery({ maxWidth: 1100 });
   return (
     <>
       {showModal && (
@@ -25,9 +27,9 @@ function ServiceForm({}) {
           />
         </Modal>
       )}
-      <Block display="flex" flexDirection="row" gap="2%" border="1px solid white" padding="20px">
+      <Block display="flex" flexDirection={breakpointOne ? 'column' : 'row'} gap="2%" border="1px solid white" padding="20px">
         <Block width="50%">
-          <Title fontSize="45px" color="white">
+          <Title fontSize={breakpointOne ? '25px' : '45px'} color="white" textAlign={breakpointOne ? 'center' : ''}>
             Нам надо поговорить....
           </Title>
           <Text color="white" fontSize="20px">
@@ -36,13 +38,13 @@ function ServiceForm({}) {
             компьютер и прочтём письмо.
           </Text>
         </Block>
-        <Block display="flex" justifyContent="center" alignItems="center">
+        <Block display="flex" justifyContent="center" alignItems="center" margin={breakpointOne ? '20px 0' : ''}>
           <Button
             display="block"
             onClick={() => setShowModal(true)}
             padding="0"
             color="#e28e10"
-            minWidth="350px"
+            minWidth={breakpointOne ? '150px' : '350px'}
             height="80px"
             minHeight="80px"
             fontSize="40px"

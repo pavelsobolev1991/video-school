@@ -19,6 +19,10 @@ const ArrowButton = styled.button`
     left: 10px;
     &:before {
       content: '\\2190';
+      position: relative;
+      top: -4px;
+      display: block;
+      font-weight: bold;
     }
   `}
 
@@ -26,6 +30,8 @@ const ArrowButton = styled.button`
     right: 10px;
     &:before {
       content: '\\2192';
+      position: relative;
+      top: -4px;
     }
   `}
 

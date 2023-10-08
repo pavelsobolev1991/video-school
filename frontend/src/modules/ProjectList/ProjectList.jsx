@@ -27,8 +27,13 @@ const StyledIframe = styled.iframe`
   width: 640px;
   height: 480px;
   allow: autoplay;
+  overflow-x: auto;
+  overflow-y: auto;
   background-image: url('https://top-fon.com/uploads/posts/2023-01/1674865273_top-fon-com-p-fon-dlya-prezentatsii-chernii-matovii-157.jpg');
-`;
+  @media (max-width: 640px) {
+    width: 100%;  // Set width to 100% when the window width is less than 640px
+  }
+  `;
 
 function ProjectList({ projects }) {
   const [startIndexByCategory, setStartIndexByCategory] = useState({});
@@ -144,10 +149,9 @@ function ProjectList({ projects }) {
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            maxWidth="300px"
           >
             <Block>
-              <Text fontSize="30px" fontWeight="700">
+              <Text fontSize={isMobile ? '4vw' : '30px'} fontWeight="700">
                 Проект {selectedProject.category}: {selectedProject.title}
               </Text>
             </Block>
@@ -162,7 +166,7 @@ function ProjectList({ projects }) {
               Описание проекта:
             </Text>
             <Block margin="20px 0 0 0">
-              <Text fontSize="20px">{selectedProject.description}</Text>
+              <Text fontSize={isMobile ? '4vw' : '20px'} >{selectedProject.description}</Text>
             </Block>
             {/* <Button onClick={() => setShowModal(false)}>Закрыть</Button> */}
           </Block>

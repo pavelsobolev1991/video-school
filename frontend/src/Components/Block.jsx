@@ -73,6 +73,7 @@ function Block({
   width,
   height,
   minWidth,
+  maxWidth,
   maxHeight,
   margin,
   overflow,
@@ -104,6 +105,7 @@ function Block({
       height={height}
       margin={margin}
       minWidth={minWidth}
+      maxWidth={maxWidth}
       maxHeight={maxHeight}
       overflow={overflow}
       padding={padding}
