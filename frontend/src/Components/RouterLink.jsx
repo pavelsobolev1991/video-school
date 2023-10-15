@@ -11,7 +11,7 @@ const LinkStyles = styled(Link)`
   height: ${({ height }) => height || ''};
   max-width: ${({ maxWidth }) => maxWidth || ''};
   max-height: ${({ maxHeight }) => maxHeight || ''};
-  margin-left: ${({ marginLeft }) => marginLeft || '30px'};
+  margin-left: ${({ marginLeft }) => marginLeft || '0px'};
   text-decoration: none;
   cursor: pointer;
 
